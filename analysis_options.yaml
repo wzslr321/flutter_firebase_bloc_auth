@@ -1,11 +1,22 @@
-include: package:lint/analysis_options.yaml
+include: all_lint_rules.yaml
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    included_file_warning: ignore
+    top_level_function_literal_block: ignore
 
 linter:
   rules:
-    - use_key_in_widget_constructors
-    - avoid_relative_lib_imports
-    - prefer_relative_imports
-    - sort_child_properties_last
-    - sort_constructors_first
-    - sort_pub_dependencies
-    - sort_unnamed_constructors_first
+    prefer_double_quotes: false
+    always_specify_types: false
+    unnecessary_final: false
+    prefer_expression_function_bodies: false
+    always_put_required_named_parameters_first: false
+    avoid_as: false
+    flutter_style_todos: false
+    avoid_annotating_with_dynamic: false
+    public_member_api_docs: false
+    prefer_const_constructors_in_immutables: false
+    use_key_in_widget_constructors: false

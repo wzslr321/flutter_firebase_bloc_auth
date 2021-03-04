@@ -20,13 +20,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: darkBlueColor,
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
       routes: {
-        LoginScreen.routeName: (ctx) => const LoginScreen(),
+        LoginScreen.routeName: (ctx) => LoginScreen(),
       },
       onUnknownRoute: (_) {
         return MaterialPageRoute<PageNotFoundScreen>(
-            builder: (ctx) => const PageNotFoundScreen());
+            builder: (ctx) => PageNotFoundScreen());
       },
     );
   }
