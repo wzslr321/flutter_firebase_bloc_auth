@@ -1,12 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'constants.dart';
-import 'pages/home/home_screen.dart';
-import 'pages/login/login_screen.dart';
+import 'pages/authentication/authentication_screen.dart';
+import 'pages/authentication/login/login_screen.dart';
 import 'pages/page_not_found/page_not_found_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: primaryBlueColor,
       ),
-      home: HomeScreen(),
+      home: AuthenticationScreen(),
       routes: {
         LoginScreen.routeName: (ctx) => LoginScreen(),
       },
