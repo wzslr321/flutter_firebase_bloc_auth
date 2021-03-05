@@ -5,8 +5,11 @@ class PageNotFoundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('Page Not Found'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(';=)'),
+      ),
+      body: const Text('Page Not Found'),
     );
   }
 }

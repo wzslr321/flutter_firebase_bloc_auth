@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TwitterCopycat',
       theme: ThemeData(
-        primarySwatch: darkBlueColor,
+        primarySwatch: primaryBlueColor,
       ),
       home: HomeScreen(),
       routes: {
