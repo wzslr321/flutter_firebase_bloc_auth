@@ -3,5 +3,14 @@ import 'package:riverpod/riverpod.dart';
 
 import '../models/authentication_service.dart';
 
-final authenticationServiceProvider = Provider<AuthenticationService>(
-    (_) => AuthenticationService(FirebaseAuth.instance));
+final firebaseAuthProvider = Provider<FirebaseAuth>((_) {
+  return FirebaseAuth.instance;
+});
+
+final authServicesProvider = Provider<AuthenticationService>((ref) {
+  return AuthenticationService(ref.read(firebaseAuthProvider));
+});
+
+final authStateProvider = StreamProvider<User?>((ref) {
+  return ref.watch(authServicesProvider).authStateChanges;
+});
