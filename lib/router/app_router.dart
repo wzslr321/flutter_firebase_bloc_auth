@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../pages/authentication/authentication_screen.dart';
 import '../pages/authentication/login/login_screen.dart';
 import '../pages/authentication/register/register_screen.dart';
 import '../pages/home/home_screen.dart';
@@ -11,6 +12,10 @@ class AppRouter {
       case HomeScreen.routeName:
         return MaterialPageRoute<HomeScreen>(
           builder: (ctx) => HomeScreen(),
+        );
+      case AuthenticationScreen.routeName:
+        return MaterialPageRoute<AuthenticationScreen>(
+          builder: (ctx) => AuthenticationScreen(),
         );
       case LoginScreen.routeName:
         return MaterialPageRoute<LoginScreen>(

@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,15 @@ Future<void> main() async {
 
   runApp(MyApp(
     appRouter: AppRouter(),
+    connectivity: Connectivity(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({required this.appRouter});
+  MyApp({required this.appRouter, required this.connectivity});
 
   final AppRouter appRouter;
+  final Connectivity connectivity;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<AppRouter>('appRouter', appRouter));
+    properties
+      ..add(DiagnosticsProperty<AppRouter>('appRouter', appRouter))
+      ..add(DiagnosticsProperty<Connectivity>('connectivity', connectivity));
   }
 }
