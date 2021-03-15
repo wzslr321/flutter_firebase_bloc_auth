@@ -14,7 +14,8 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: primaryOrangeColor,
           title: const Text(';--)'),
         ),
-        body: const Text('Home Screen'),
+        body:
+            ElevatedButton(onPressed: () {}, child: const Text('Home Screen')),
       ),
     );
   }

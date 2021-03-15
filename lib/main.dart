@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import './logic/auth/auth_cubit.dart';
+import './logic/auth/auth_bloc.dart';
 import './logic/connection/internet_cubit.dart';
 import 'constants/colors.dart';
 import 'router/app_router.dart';
@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthCubit>(create: (ctx) => AuthCubit()),
-        BlocProvider<InternetCubit>(create: (ctx) => InternetCubit())
+        BlocProvider<InternetCubit>(
+            create: (ctx) => InternetCubit(connectivity: connectivity))
       ],
       child: MaterialApp(
         title: 'TwitterCopycat',

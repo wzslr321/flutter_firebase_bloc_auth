@@ -22,7 +22,7 @@ class AuthenticationScreen extends StatelessWidget {
                       ? const Text('Mobile')
                       : const Text('Disconnected');
             }
-            return const Text('Something seems to be wrong ;--(');
+            return const Divider();
           }),
         ],
       ),
