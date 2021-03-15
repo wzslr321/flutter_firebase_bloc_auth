@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   bloc: ^7.0.0-nullsafety.3
+  hydrated_bloc: ^7.0.0-nullsafety.3
+  path_provider: ^2.0.1
   firebase_auth: ^1.0.0
   firebase_core: ^1.0.0
   flutter_hooks: ^0.16.0

@@ -1,36 +1,53 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
+import './logic/auth/auth_cubit.dart';
+import './logic/connection/internet_cubit.dart';
 import 'constants/colors.dart';
-import 'pages/authentication/authentication_screen.dart';
-import 'pages/authentication/login/login_screen.dart';
-import 'pages/page_not_found/page_not_found_screen.dart';
+import 'router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: MyApp()));
+
+  runApp(MyApp(
+    appRouter: AppRouter(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({required this.appRouter});
+
+  final AppRouter appRouter;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'TwitterCopycat',
-      theme: ThemeData(
-        primarySwatch: primaryBlueColor,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(create: (ctx) => AuthCubit()),
+        BlocProvider<InternetCubit>(create: (ctx) => InternetCubit())
+      ],
+      child: MaterialApp(
+        title: 'TwitterCopycat',
+        theme: ThemeData(
+          primarySwatch: primaryBlueColor,
+        ),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
-      home: AuthenticationScreen(),
-      routes: {
-        LoginScreen.routeName: (ctx) => LoginScreen(),
-      },
-      onUnknownRoute: (_) {
-        return MaterialPageRoute<PageNotFoundScreen>(
-            builder: (ctx) => PageNotFoundScreen());
-      },
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<AppRouter>('appRouter', appRouter));
   }
 }
