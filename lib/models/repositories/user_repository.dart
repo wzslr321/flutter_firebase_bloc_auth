@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthenticationService {
-  AuthenticationService(this._firebaseAuth);
+import '../exceptions/firebase_exception.dart';
+
+class UserRepository {
+  UserRepository({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _firebaseAuth;
 
@@ -35,6 +38,20 @@ class AuthenticationService {
       return 'Logged out';
     } on FirebaseAuthException catch (e) {
       return e.message!;
+    }
+  }
+
+  bool isSignedIn() {
+    final currentUser = _firebaseAuth.currentUser;
+    return currentUser != null;
+  }
+
+  Future<User?> getUser() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      return user;
+    } on FirebaseException catch (_error, _stackTrace) {
+      throw CustomFirebaseException(_error, _stackTrace);
     }
   }
 }

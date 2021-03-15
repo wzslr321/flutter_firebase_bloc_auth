@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -10,16 +11,16 @@ abstract class AuthState extends Equatable {
 class Uninitialized extends AuthState {}
 
 class Authenticated extends AuthState {
-  Authenticated(this.username);
+  Authenticated(this.user);
 
-  final String username;
+  final User user;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 
   @override
   String toString() {
-    return 'Authenticated(userName: $username';
+    return 'Authenticated(user: $user';
   }
 }
 
