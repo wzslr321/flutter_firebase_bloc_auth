@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../constants/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';

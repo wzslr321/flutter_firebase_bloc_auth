@@ -9,11 +9,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  bloc: ^7.0.0-nullsafety.3
   firebase_auth: ^1.0.0
   firebase_core: ^1.0.0
   flutter_hooks: ^0.16.0
-  flutter_riverpod: ^0.13.1
-  hooks_riverpod: ^0.13.0
+  flutter_bloc:  ^7.0.0-nullsafety.5
+  equatable: ^2.0.0
 
 
 dev_dependencies:

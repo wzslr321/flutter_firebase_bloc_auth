@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:twitter_copycat/models/authentication_service.dart';
-import 'package:twitter_copycat/providers/authentication_provider.dart';
 
 class AuthenticationForm extends StatefulWidget {
   const AuthenticationForm({required this.buttonText});
@@ -45,10 +42,10 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             if (_formKey.currentState!.validate()) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: const Text('Authorizing...')));
-              context.read<AuthenticationService>(authServicesProvider).signIn(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
+              // context.read<AuthenticationService>(authServicesProvider).signIn(
+              //   email: emailController.text,
+              //  password: passwordController.text,
+              // );
             }
           },
           child: Text(this.widget.buttonText),
