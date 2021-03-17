@@ -15,13 +15,12 @@ import 'router/app_router.dart';
 
 Future<void> main() async {
   Bloc.observer = MyBlocObserver();
-  final userRepository = UserRepository();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  final userRepository = UserRepository();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
-
-  await Firebase.initializeApp();
 
   runApp(MyApp(
     appRouter: AppRouter(),

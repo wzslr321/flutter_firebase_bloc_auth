@@ -11,7 +11,7 @@ class RegisterScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('Sign in'),
         ),
-        body: AuthenticationForm(
+        body: const AuthenticationForm(
           buttonText: 'Sign in',
         ),
       ),

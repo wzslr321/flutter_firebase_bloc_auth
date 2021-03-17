@@ -14,6 +14,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   final UserRepository _userRepository;
 
+  UserRepository get userRepository => _userRepository;
+
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthStarted) {

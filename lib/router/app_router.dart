@@ -9,18 +9,16 @@ import '../pages/page_not_found/page_not_found_screen.dart';
 class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case HomeScreen.routeName:
-        return MaterialPageRoute<HomeScreen>(
-          builder: (ctx) => HomeScreen(),
+      case '/':
+        return MaterialPageRoute<AuthenticationScreen>(
+          builder: (ctx) => AuthenticationScreen(),
         );
-      case AuthenticationScreen.routeName:
+      case HomeScreen.routeName:
         return MaterialPageRoute<AuthenticationScreen>(
           builder: (ctx) => AuthenticationScreen(),
         );
       case LoginScreen.routeName:
-        return MaterialPageRoute<LoginScreen>(
-          builder: (ctx) => LoginScreen(),
-        );
+        return MaterialPageRoute<LoginScreen>(builder: (ctx) => LoginScreen());
       case RegisterScreen.routeName:
         return MaterialPageRoute<RegisterScreen>(
           builder: (ctx) => RegisterScreen(),
