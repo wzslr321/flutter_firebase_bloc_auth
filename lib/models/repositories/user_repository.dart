@@ -9,34 +9,29 @@ class UserRepository {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<String> signIn(
-      {required String email, required String password}) async {
+  Future<void> signIn({required String email, required String password}) {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      return _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return 'Signed in';
-    } on FirebaseAuthException catch (e) {
-      return e.message!;
+    } on FirebaseAuthException catch (_error, _stackTrace) {
+      throw CustomFirebaseException(_error, _stackTrace);
     }
   }
 
-  Future<String> signUp(
-      {required String email, required String password}) async {
+  Future<void> signUp({required String email, required String password}) {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      return _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return 'Signed up';
-    } on FirebaseAuthException catch (e) {
-      return e.message!;
+    } on FirebaseAuthException catch (_error, _stackTrace) {
+      throw CustomFirebaseException(_error, _stackTrace);
     }
   }
 
-  Future<String> signOut() async {
+  Future<void> signOut() {
     try {
-      await _firebaseAuth.signOut();
-      return 'Logged out';
-    } on FirebaseAuthException catch (e) {
-      return e.message!;
+      return _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (_error, _stackTrace) {
+      throw CustomFirebaseException(_error, _stackTrace);
     }
   }
 

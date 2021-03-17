@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:twitter_copycat/pages/authentication/authentication_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../logic/auth_bloc/auth_bloc.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
               if (state is Authenticated) {
-                return Text('Hello ${state.user}');
+                return Text('Hello ${state.user.email}');
               } else {
                 return const Text('Hmm...');
               }
@@ -28,6 +29,8 @@ class HomeScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                  Navigator.of(context)
+                      .popAndPushNamed(AuthenticationScreen.routeName);
                 },
                 child: const Text('Log out')),
           ],
