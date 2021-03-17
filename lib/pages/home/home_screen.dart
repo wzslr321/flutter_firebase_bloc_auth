@@ -29,8 +29,8 @@ class HomeScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<AuthBloc>(context).add(LoggedOut());
-                  Navigator.of(context)
-                      .popAndPushNamed(AuthenticationScreen.routeName);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      AuthenticationScreen.routeName, (route) => false);
                 },
                 child: const Text('Log out')),
           ],

@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:twitter_copycat/pages/home/home_screen.dart';
 
 import '../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../logic/login_bloc/login_bloc.dart';
-import '../../home/home_screen.dart';
 
 class AuthenticationForm extends StatefulWidget {
   const AuthenticationForm({required this.buttonText});
@@ -94,7 +94,8 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         if (state.isSuccess) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           BlocProvider.of<AuthBloc>(context).add(LoggedIn());
-          Navigator.of(context).popAndPushNamed(HomeScreen.routeName);
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -104,12 +105,16 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
             child: Column(children: <Widget>[
               TextFormField(
                   controller: emailController,
+                  autocorrect: false,
+                  autovalidateMode: AutovalidateMode.always,
                   decoration:
                       const InputDecoration(hintText: 'Enter the email'),
                   validator: (_) {
                     return !state.isEmailValid ? 'Invalid Email' : null;
                   }),
               TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
+                  autocorrect: false,
                   controller: passwordController,
                   decoration:
                       const InputDecoration(hintText: 'Enter the password'),
