@@ -9,7 +9,9 @@ import 'package:path_provider/path_provider.dart';
 import './logic/auth_bloc/auth_bloc.dart';
 import './logic/connection/internet_cubit.dart';
 import 'constants/colors.dart';
+import 'logic/login_bloc/login_bloc.dart';
 import 'logic/observers/bloc_observer.dart';
+import 'logic/register_bloc/register_bloc.dart';
 import 'models/repositories/user_repository.dart';
 import 'router/app_router.dart';
 
@@ -47,7 +49,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
             create: (ctx) => AuthBloc(userRepository: userRepository)),
         BlocProvider<InternetCubit>(
-            create: (ctx) => InternetCubit(connectivity: connectivity))
+            create: (ctx) => InternetCubit(connectivity: connectivity)),
+        BlocProvider<LoginBloc>(
+            create: (ctx) => LoginBloc(userRepository: userRepository)),
+        BlocProvider<RegisterBloc>(
+          create: (ctx) => RegisterBloc(),
+        )
       ],
       child: MaterialApp(
         title: 'TwitterCopycat',

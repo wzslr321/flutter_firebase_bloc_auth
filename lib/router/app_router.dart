@@ -13,15 +13,15 @@ class AppRouter {
         return MaterialPageRoute<AuthenticationScreen>(
           builder: (ctx) => AuthenticationScreen(),
         );
-      case HomeScreen.routeName:
-        return MaterialPageRoute<AuthenticationScreen>(
-          builder: (ctx) => AuthenticationScreen(),
-        );
       case LoginScreen.routeName:
         return MaterialPageRoute<LoginScreen>(builder: (ctx) => LoginScreen());
       case RegisterScreen.routeName:
         return MaterialPageRoute<RegisterScreen>(
           builder: (ctx) => RegisterScreen(),
+        );
+      case HomeScreen.routeName:
+        return MaterialPageRoute<HomeScreen>(
+          builder: (ctx) => HomeScreen(),
         );
       default:
         return MaterialPageRoute<PageNotFoundScreen>(

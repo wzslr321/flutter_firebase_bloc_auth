@@ -28,8 +28,8 @@ class LoginPasswordChanged extends LoginEvent {
   List<Object> get props => [password];
 }
 
-class LoginWIthCredentialsPressed extends LoginEvent {
-  LoginWIthCredentialsPressed({
+class LoginWithCredentialsPressed extends LoginEvent {
+  LoginWithCredentialsPressed({
     required this.email,
     required this.password,
   });

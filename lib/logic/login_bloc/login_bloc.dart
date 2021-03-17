@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapLoginEmailChangeToState(event.email);
     } else if (event is LoginPasswordChanged) {
       yield* _mapLoginPasswordChangeToState(event.password);
-    } else if (event is LoginWIthCredentialsPressed) {
+    } else if (event is LoginWithCredentialsPressed) {
       yield* _mapLoginWithCredentialsPressedToState(
           event.email, event.password);
     }
