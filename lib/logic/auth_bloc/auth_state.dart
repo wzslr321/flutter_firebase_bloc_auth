@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+part of 'auth_bloc.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();

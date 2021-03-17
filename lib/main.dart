@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:twitter_copycat/models/repositories/user_repository.dart';
 
-import './logic/auth/auth_bloc.dart';
+import './logic/auth_bloc/auth_bloc.dart';
 import './logic/connection/internet_cubit.dart';
 import 'constants/colors.dart';
 import 'router/app_router.dart';
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(create: (ctx) => AuthCubit()),
+        BlocProvider<AuthBloc>(
+            create: (ctx) => AuthBloc(userRepository: UserRepository())),
         BlocProvider<InternetCubit>(
             create: (ctx) => InternetCubit(connectivity: connectivity))
       ],

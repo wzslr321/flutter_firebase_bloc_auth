@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../models/repositories/user_repository.dart';
-import 'bloc.dart';
+
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required UserRepository userRepository})
