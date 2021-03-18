@@ -1,15 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:twitter_copycat/pages/home/home_screen.dart';
 
 import '../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../logic/login_bloc/login_bloc.dart';
+import '../../../logic/register_bloc/register_bloc.dart';
+import '../../home/home_screen.dart';
 
 class AuthenticationForm extends StatefulWidget {
-  const AuthenticationForm({required this.buttonText});
+  const AuthenticationForm(
+      {required this.buttonText, required this.isLoginScreen});
 
   final String buttonText;
+  final bool isLoginScreen;
 
   @override
   _AuthenticationFormState createState() => _AuthenticationFormState();
@@ -17,7 +20,9 @@ class AuthenticationForm extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(StringProperty('buttonText', buttonText));
+    properties
+      ..add(StringProperty('buttonText', buttonText))
+      ..add(DiagnosticsProperty<bool>('isLoginScreen', isLoginScreen));
   }
 }
 
@@ -35,19 +40,27 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   }
 
   late LoginBloc _loginBloc;
+  late RegisterBloc _registerBloc;
 
   void _onEmailChange() {
-    _loginBloc.add(LoginEmailChange(email: emailController.text));
+    widget.isLoginScreen
+        ? _loginBloc.add(LoginEmailChange(email: emailController.text))
+        : _registerBloc.add(RegisterEmailChanged(email: emailController.text));
   }
 
   void _onPasswordChange() {
-    _loginBloc.add(LoginPasswordChanged(password: passwordController.text));
+    widget.isLoginScreen
+        ? _loginBloc
+            .add(LoginPasswordChanged(password: passwordController.text))
+        : _registerBloc
+            .add(RegisterPasswordChanged(password: passwordController.text));
   }
 
   @override
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _registerBloc = BlocProvider.of<RegisterBloc>(context);
     emailController.addListener(_onEmailChange);
     passwordController.addListener(_onPasswordChange);
   }
@@ -124,9 +137,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               ElevatedButton(
                 onPressed: () {
                   if (canBeSubmitted(state)) {
-                    _loginBloc.add(LoginWithCredentialsPressed(
-                        email: emailController.text,
-                        password: passwordController.text));
+                    widget.isLoginScreen
+                        ? _loginBloc.add(LoginWithCredentialsPressed(
+                            email: emailController.text,
+                            password: passwordController.text))
+                        : _registerBloc.add(RegisterSubmitted(
+                            email: emailController.text,
+                            password: passwordController.text));
                   }
                 },
                 child: Text(widget.buttonText),

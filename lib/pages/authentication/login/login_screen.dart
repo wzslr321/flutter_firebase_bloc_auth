@@ -9,6 +9,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Log in')),
-        body: const AuthenticationForm(buttonText: 'Login'));
+        body: const AuthenticationForm(
+          buttonText: 'Login',
+          isLoginScreen: true,
+        ));
   }
 }

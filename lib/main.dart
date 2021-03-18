@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginBloc>(
             create: (ctx) => LoginBloc(userRepository: userRepository)),
         BlocProvider<RegisterBloc>(
-          create: (ctx) => RegisterBloc(),
+          create: (ctx) => RegisterBloc(userRepository: userRepository),
         )
       ],
       child: MaterialApp(

@@ -47,7 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await _userRepository.signIn(email: email, password: password);
       yield LoginState.success();
     } on FirebaseAuthException {
-      LoginState.failure();
+      yield LoginState.failure();
     }
   }
 }
