@@ -9,10 +9,10 @@ import 'package:path_provider/path_provider.dart';
 import './logic/auth_bloc/auth_bloc.dart';
 import './logic/connection/internet_cubit.dart';
 import 'constants/colors.dart';
-import 'logic/login_bloc/login_bloc.dart';
 import 'logic/observers/bloc_observer.dart';
-import 'logic/register_bloc/register_bloc.dart';
 import 'models/repositories/user_repository.dart';
+import 'pages/authentication/login/login_screen.dart';
+import 'pages/authentication/register/register_screen.dart';
 import 'router/app_router.dart';
 
 Future<void> main() async {
@@ -47,22 +47,27 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-            create: (ctx) => AuthBloc(userRepository: userRepository)),
+            create: (ctx) =>
+                AuthBloc(userRepository: userRepository)..add(AuthStarted())),
         BlocProvider<InternetCubit>(
             create: (ctx) => InternetCubit(connectivity: connectivity)),
-        BlocProvider<LoginBloc>(
-            create: (ctx) => LoginBloc(userRepository: userRepository)),
-        BlocProvider<RegisterBloc>(
-          create: (ctx) => RegisterBloc(userRepository: userRepository),
-        )
       ],
       child: MaterialApp(
-        title: 'TwitterCopycat',
-        theme: ThemeData(
-          primarySwatch: primaryBlueColor,
-        ),
-        onGenerateRoute: appRouter.onGenerateRoute,
-      ),
+          title: 'TwitterCopycat',
+          theme: ThemeData(
+            primarySwatch: primaryBlueColor,
+          ),
+          onGenerateRoute: (settings) {
+            if (settings.name == LoginScreen.routeName) {
+              return MaterialPageRoute<LoginScreen>(builder: (context) {
+                return LoginScreen(userRepository: userRepository);
+              });
+            } else if (settings.name == RegisterScreen.routeName) {
+              return MaterialPageRoute<RegisterScreen>(builder: (context) {
+                return RegisterScreen(userRepository: userRepository);
+              });
+            }
+          }),
     );
   }
 

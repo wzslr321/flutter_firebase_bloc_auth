@@ -1,8 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/repositories/user_repository.dart';
 import '../widgets/authentication_form.dart';
 
 class RegisterScreen extends StatelessWidget {
+  RegisterScreen({required this.userRepository});
+
+  final UserRepository userRepository;
+
   static const routeName = '/register';
 
   @override
@@ -18,5 +24,12 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty<UserRepository>('userRepository', userRepository));
   }
 }
