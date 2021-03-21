@@ -18,6 +18,7 @@ dependencies:
   flutter_hooks: ^0.16.0
   flutter_bloc:  ^7.0.0-nullsafety.5
   equatable: ^2.0.0
+  dartz:  ^0.10.0-nullsafety.1
 
 
 dev_dependencies:

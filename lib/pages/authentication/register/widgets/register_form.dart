@@ -2,31 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../logic/auth_bloc/auth_bloc.dart';
-import '../../../logic/login_bloc/login_bloc.dart';
-import '../../../logic/register_bloc/register_bloc.dart';
-import '../../home/home_screen.dart';
+import '../../../../logic/auth_bloc/auth_bloc.dart';
+import '../../../../logic/register_bloc/register_bloc.dart';
+import '../../../home/home_screen.dart';
 
-class AuthenticationForm extends StatefulWidget {
-  const AuthenticationForm(
-      {required this.buttonText, required this.isLoginScreen});
-
-  final String buttonText;
-  final bool isLoginScreen;
-
+class RegisterForm extends StatefulWidget {
   @override
   _AuthenticationFormState createState() => _AuthenticationFormState();
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(StringProperty('buttonText', buttonText))
-      ..add(DiagnosticsProperty<bool>('isLoginScreen', isLoginScreen));
-  }
 }
 
-class _AuthenticationFormState extends State<AuthenticationForm> {
+class _AuthenticationFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -35,31 +20,24 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   bool get areControllersNotEmpty =>
       emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
 
-  bool canBeSubmitted(LoginState state) {
+  bool canBeSubmitted(RegisterState state) {
     return state.isFormValid && areControllersNotEmpty && !state.isSubmitting;
   }
 
-  late LoginBloc _loginBloc;
   late RegisterBloc _registerBloc;
 
   void _onEmailChange() {
-    widget.isLoginScreen
-        ? _loginBloc.add(LoginEmailChange(email: emailController.text))
-        : _registerBloc.add(RegisterEmailChanged(email: emailController.text));
+    _registerBloc.add(RegisterEmailChanged(email: emailController.text));
   }
 
   void _onPasswordChange() {
-    widget.isLoginScreen
-        ? _loginBloc
-            .add(LoginPasswordChanged(password: passwordController.text))
-        : _registerBloc
-            .add(RegisterPasswordChanged(password: passwordController.text));
+    _registerBloc
+        .add(RegisterPasswordChanged(password: passwordController.text));
   }
 
   @override
   void initState() {
     super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
     _registerBloc = BlocProvider.of<RegisterBloc>(context);
     emailController.addListener(_onEmailChange);
     passwordController.addListener(_onPasswordChange);
@@ -74,7 +52,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
         if (state.isFailure) {
           ScaffoldMessenger.of(context)
@@ -83,7 +61,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const <Widget>[
-                  Text('Failed to login'),
+                  Text('Failed to register'),
                   Icon(Icons.error),
                 ],
               ),
@@ -111,7 +89,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               .pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
         }
       },
-      child: BlocBuilder<LoginBloc, LoginState>(
+      child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
           return Form(
             key: _formKey,
@@ -137,16 +115,12 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               ElevatedButton(
                 onPressed: () {
                   if (canBeSubmitted(state)) {
-                    widget.isLoginScreen
-                        ? _loginBloc.add(LoginWithCredentialsPressed(
-                            email: emailController.text,
-                            password: passwordController.text))
-                        : _registerBloc.add(RegisterSubmitted(
-                            email: emailController.text,
-                            password: passwordController.text));
+                    _registerBloc.add(RegisterSubmitted(
+                        email: emailController.text,
+                        password: passwordController.text));
                   }
                 },
-                child: Text(widget.buttonText),
+                child: const Text('Login'),
               )
             ]),
           );
