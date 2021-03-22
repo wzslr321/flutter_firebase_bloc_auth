@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../../logic/register_bloc/register_bloc.dart';
 import '../../../home/home_screen.dart';
+import '../../widgets/auth_snack_bar.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -58,13 +59,7 @@ class _AuthenticationFormState extends State<RegisterForm> {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text('Failed to register'),
-                  Icon(Icons.error),
-                ],
-              ),
+              content: AuthSnackBarContent(text: 'Failed to authorize'),
             ));
         }
 
@@ -72,13 +67,7 @@ class _AuthenticationFormState extends State<RegisterForm> {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text('Authorizing...'),
-                  CircularProgressIndicator(),
-                ],
-              ),
+              content: AuthSnackBarContent(text: 'Authorizing...'),
             ));
         }
 
