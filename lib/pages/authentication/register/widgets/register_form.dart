@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../../logic/register_bloc/register_bloc.dart';
 import '../../../home/home_screen.dart';
-import '../../widgets/auth_snack_bar.dart';
+import '../../widgets/auth_form_field.dart';
+import '../../widgets/auth_snack_bar_content.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -34,6 +35,14 @@ class _AuthenticationFormState extends State<RegisterForm> {
   void _onPasswordChange() {
     _registerBloc
         .add(RegisterPasswordChanged(password: passwordController.text));
+  }
+
+  String? _registerEmailValidator(RegisterState state) {
+    return !state.isEmailValid ? 'Invalid Email' : null;
+  }
+
+  String? _registerPasswordValidator(RegisterState state) {
+    return !state.isPasswordValid ? 'Invalid Password' : null;
   }
 
   @override
@@ -83,24 +92,12 @@ class _AuthenticationFormState extends State<RegisterForm> {
           return Form(
             key: _formKey,
             child: Column(children: <Widget>[
-              TextFormField(
+              AuthFormField(
                   controller: emailController,
-                  autocorrect: false,
-                  autovalidateMode: AutovalidateMode.always,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter the email'),
-                  validator: (_) {
-                    return !state.isEmailValid ? 'Invalid Email' : null;
-                  }),
-              TextFormField(
-                  autovalidateMode: AutovalidateMode.always,
-                  autocorrect: false,
+                  validator: _registerEmailValidator(state)),
+              AuthFormField(
                   controller: passwordController,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter the password'),
-                  validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid Password' : null;
-                  }),
+                  validator: _registerPasswordValidator(state)),
               ElevatedButton(
                 onPressed: () {
                   if (canBeSubmitted(state)) {

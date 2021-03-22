@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../../logic/login_bloc/login_bloc.dart';
 import '../../../home/home_screen.dart';
+import '../../widgets/auth_form_field.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -32,6 +33,14 @@ class _AuthenticationFormState extends State<LoginForm> {
 
   void _onPasswordChange() {
     _loginBloc.add(LoginPasswordChanged(password: passwordController.text));
+  }
+
+  String? _loginEmailValidator(LoginState state) {
+    return !state.isEmailValid ? 'Invalid Email' : null;
+  }
+
+  String? _loginPasswordValidator(LoginState state) {
+    return !state.isPasswordValid ? 'Invalid Password' : null;
   }
 
   @override
@@ -93,24 +102,12 @@ class _AuthenticationFormState extends State<LoginForm> {
           return Form(
             key: _formKey,
             child: Column(children: <Widget>[
-              TextFormField(
+              AuthFormField(
                   controller: emailController,
-                  autocorrect: false,
-                  autovalidateMode: AutovalidateMode.always,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter the email'),
-                  validator: (_) {
-                    return !state.isEmailValid ? 'Invalid Email' : null;
-                  }),
-              TextFormField(
-                  autovalidateMode: AutovalidateMode.always,
-                  autocorrect: false,
+                  validator: _loginEmailValidator(state)),
+              AuthFormField(
                   controller: passwordController,
-                  decoration:
-                      const InputDecoration(hintText: 'Enter the password'),
-                  validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid Password' : null;
-                  }),
+                  validator: _loginPasswordValidator(state)),
               ElevatedButton(
                 onPressed: () {
                   if (canBeSubmitted(state)) {
