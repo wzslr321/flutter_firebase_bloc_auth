@@ -1,5 +1,5 @@
-name: twitter_copycat
-description: Copycat of Twitter.
+name: flutter_firebase_bloc_auth
+description: Template of Flutter Project with Firebase authentication and BLoC state management
 version: 1.0.0+1
 
 environment:
