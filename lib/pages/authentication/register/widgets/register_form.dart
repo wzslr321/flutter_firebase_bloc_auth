@@ -67,17 +67,21 @@ class _AuthenticationFormState extends State<RegisterForm> {
         if (state.isFailure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              content: AuthSnackBarContent(text: 'Failed to authorize'),
-            ));
+            ..showSnackBar(
+              SnackBar(
+                content: AuthSnackBarContent(text: 'Failed to authorize'),
+              ),
+            );
         }
 
         if (state.isSubmitting) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              content: AuthSnackBarContent(text: 'Authorizing...'),
-            ));
+            ..showSnackBar(
+              SnackBar(
+                content: AuthSnackBarContent(text: 'Authorizing...'),
+              ),
+            );
         }
 
         if (state.isSuccess) {

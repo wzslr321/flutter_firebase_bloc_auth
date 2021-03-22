@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../constants/colors.dart';
 import '../../logic/connection/internet_cubit.dart';
 import 'login/login_screen.dart';
 import 'register/register_screen.dart';
+import 'widgets/internet_disconnected_widget.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   static const routeName = '/';
@@ -12,19 +14,13 @@ class AuthenticationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.cyan,
-        appBar: AppBar(title: const Text('Authentication')),
+        backgroundColor: primaryBlueColor,
         body: Column(
           children: <Widget>[
             BlocBuilder<InternetCubit, InternetState>(
                 builder: (context, state) {
               if (state is InternetDisconnected) {
-                return Column(
-                  children: const [
-                    CircularProgressIndicator(),
-                    Text('You do not have a internet connection'),
-                  ],
-                );
+                return InternetDisconnectedWidget();
               }
               return const Divider();
             }),
@@ -34,12 +30,12 @@ class AuthenticationScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pushNamed(LoginScreen.routeName);
                     },
-                    child: const Text('Login')),
+                    child: const Text('Sign up')),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(RegisterScreen.routeName);
                     },
-                    child: const Text('Register')),
+                    child: const Text('Log in')),
               ],
             )
           ],

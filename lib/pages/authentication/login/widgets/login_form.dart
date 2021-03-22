@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:twitter_copycat/pages/authentication/widgets/auth_snack_bar_content.dart';
 
 import '../../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../../logic/login_bloc/login_bloc.dart';
@@ -65,29 +66,23 @@ class _AuthenticationFormState extends State<LoginForm> {
         if (state.isFailure) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text('Failed to login'),
-                  Icon(Icons.error),
-                ],
+            ..showSnackBar(
+              SnackBar(
+                content: AuthSnackBarContent(
+                  text: 'Failed to login',
+                ),
               ),
-            ));
+            );
         }
 
         if (state.isSubmitting) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const <Widget>[
-                  Text('Authorizing...'),
-                  CircularProgressIndicator(),
-                ],
+            ..showSnackBar(
+              SnackBar(
+                content: AuthSnackBarContent(text: 'Logging in...'),
               ),
-            ));
+            );
         }
 
         if (state.isSuccess) {

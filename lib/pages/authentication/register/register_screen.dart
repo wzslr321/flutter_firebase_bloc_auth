@@ -9,9 +9,6 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sign in'),
-        ),
         body: RegisterForm(),
       ),
     );
