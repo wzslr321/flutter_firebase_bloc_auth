@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:twitter_copycat/pages/authentication/authentication_screen.dart';
 
 import '../../constants/colors.dart';
 import '../../logic/auth_bloc/auth_bloc.dart';
+import '../authentication/authentication_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
