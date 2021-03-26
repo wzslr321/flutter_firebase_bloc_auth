@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:twitter_copycat/pages/authentication/widgets/auth_snack_bar_content.dart';
 
 import '../../../../logic/auth_bloc/auth_bloc.dart';
 import '../../../../logic/login_bloc/login_bloc.dart';
 import '../../../home/home_screen.dart';
 import '../../widgets/auth_form_field.dart';
+import '../../widgets/auth_snack_bar_content.dart';
 
 class LoginForm extends StatefulWidget {
   @override
